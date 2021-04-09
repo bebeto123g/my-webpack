@@ -1,0 +1,14 @@
+# Файлы редактора
+.idea
+.vscode
+
+# Вспомогательные файлы
+*.log*
+package-lock.json
+node_modules/
+src/assets/
+
+# Папка с собранными файлами проекта
+web_server/
+build/
+dist/
