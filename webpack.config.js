@@ -21,8 +21,8 @@ module.exports = {
   // Точка входа
   context: path.resolve(__dirname, 'src'),
   entry: {
-    // main: ['@babel/polyfill', './index.js'],
-    main: './index.js',
+    main: ['@babel/polyfill', './index.js'],
+    // main: './index.js',
     analytics: './analytics.ts',
   },
 
@@ -82,9 +82,15 @@ module.exports = {
     rules: [
       // JavaScript
       {
-        test: /\.js$/,
+        test: /\.m?js$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: ["@babel/plugin-proposal-class-properties"]
+          }
+        }
       },
       // изображения
       {
