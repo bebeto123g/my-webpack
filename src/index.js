@@ -24,3 +24,17 @@ heading.innerHTML = 'Как интересно!'
 // добавляем параграф и заголовок в DOM
 const root = document.querySelector('#root')
 root.append(heading, p, p2)
+
+root.addEventListener('pointerover', function(e) {
+  console.log(e.currentTarget, this);
+  if (e.currentTarget !== this) return
+  this.classList.remove('bg-dark')
+})
+
+const btn = document.querySelector('.btn-click')
+btn.addEventListener('click', function () {
+  root.classList.toggle('bg-dark')
+})
+
+
+// TODO спросить про полифил с появлением файла

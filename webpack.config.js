@@ -17,12 +17,13 @@ module.exports = {
     hot: true,
     port: 8080,
   },
+  // если нужна карта при разработке, либо '' если не нужно
 
   // Точка входа
   context: path.resolve(__dirname, 'src'),
   entry: {
-    main: ['@babel/polyfill', './index.js'],
-    // main: './index.js',
+    // main: ['@babel/polyfill', './index.js'],
+    main: './index.js',
     analytics: './analytics.ts',
   },
 
@@ -48,6 +49,8 @@ module.exports = {
     minimizer: [new CssMinimizerPlugin(), new TerserWebpackPlugin()],
   },
 
+  devtool: 'eval-source-map',
+
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -69,13 +72,9 @@ module.exports = {
           from: path.resolve(__dirname, './src/*.png'),
           to: path.resolve(__dirname, './build'),
         },
-        // {
-        //   from: path.resolve(__dirname, './src/*.icon'),
-        //   to: path.resolve(__dirname, './build'),
-        // },
       ],
     }),
-
+    // new webpack.SourceMapDevToolPlugin({}),
     new webpack.HotModuleReplacementPlugin(),
   ],
   module: {
@@ -84,13 +83,46 @@ module.exports = {
       {
         test: /\.m?js$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-            plugins: ["@babel/plugin-proposal-class-properties"]
-          }
-        }
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+              plugins: ['@babel/plugin-proposal-class-properties'],
+            },
+          },
+          'eslint-loader',
+        ],
+      },
+      // TypeScript
+      {
+        test: /\.m?ts$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env', '@babel/preset-typescript'],
+              plugins: ['@babel/plugin-proposal-class-properties'],
+            },
+          },
+          'eslint-loader',
+        ],
+      },
+      // JSX
+      {
+        test: /\.m?jsx$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env', '@babel/preset-react'],
+              plugins: ['@babel/plugin-proposal-class-properties'],
+            },
+          },
+          'eslint-loader',
+        ],
       },
       // изображения
       {
@@ -114,10 +146,6 @@ module.exports = {
           'sass-loader',
         ],
       },
-      // {
-      //   test: /\.(s[ac]ss|css)$/,
-      //   use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
-      // },
     ],
   },
 }

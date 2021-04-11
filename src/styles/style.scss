@@ -1,8 +1,13 @@
-
 h1 {
   color: red;
 }
 
 p {
   cursor: cell;
+  background: azure;
+  z-index: 5;
+}
+
+.bg-dark {
+  background: gray;
 }
