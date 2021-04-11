@@ -26,9 +26,10 @@ const root = document.querySelector('#root')
 root.append(heading, p, p2)
 
 root.addEventListener('pointerover', function(e) {
-  console.log(e.currentTarget, this);
-  if (e.currentTarget !== this) return
-  this.classList.remove('bg-dark')
+  if (e.target === this)  {
+    this.classList.remove('bg-dark')
+  }
+  
 })
 
 const btn = document.querySelector('.btn-click')

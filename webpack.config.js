@@ -9,6 +9,7 @@ const TerserWebpackPlugin = require('terser-webpack-plugin')
 
 module.exports = {
   mode: 'development',
+
   devServer: {
     historyApiFallback: true,
     contentBase: path.resolve(__dirname, 'build'),
@@ -42,6 +43,7 @@ module.exports = {
       '@': path.resolve(__dirname, 'src'),
     },
   },
+
   optimization: {
     splitChunks: {
       chunks: 'all',
@@ -77,6 +79,7 @@ module.exports = {
     // new webpack.SourceMapDevToolPlugin({}),
     new webpack.HotModuleReplacementPlugin(),
   ],
+
   module: {
     rules: [
       // JavaScript
